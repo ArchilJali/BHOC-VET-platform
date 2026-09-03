@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHOC VET-platform | Veterinary Evidence Platform</title>
+  <meta name="description" content="BHOC VET-platform is the separate veterinary evidence hub for clinical science, regulatory history, species models and source navigation.">
+  <style>
+    :root { --orange:#f45116; --ink:#202020; --muted:#606060; --line:#e6e1dc; --paper:#fffdfb; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.6 Arial, sans-serif; }
+    .wrap { width:min(1120px, calc(100% - 40px)); margin:0 auto; }
+    header { border-bottom:1px solid var(--line); background:#fff; }
+    .bar { min-height:78px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { color:var(--ink); text-decoration:none; font-weight:700; letter-spacing:.08em; }
+    .brand span { color:var(--orange); }
+    nav { display:flex; gap:20px; flex-wrap:wrap; }
+    nav a, .button { color:var(--ink); text-decoration:none; }
+    nav a:hover, .button:hover { color:var(--orange); }
+    main { padding:58px 0 76px; }
+    .eyebrow { color:var(--orange); font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    h1, h2 { font-family:Georgia, serif; font-weight:400; line-height:1.12; margin:0; }
+    h1 { max-width:780px; font-size:clamp(42px, 6vw, 72px); margin:14px 0 22px; }
+    .lead { max-width:760px; color:var(--muted); font-size:20px; }
+    .rule { height:4px; width:76px; margin:32px 0; background:var(--orange); }
+    .grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; margin-top:42px; }
+    article { border:1px solid var(--line); background:#fff; padding:24px; min-height:220px; }
+    article h2 { font-size:25px; margin-bottom:12px; }
+    article p { color:var(--muted); margin:0; }
+    .links { display:flex; gap:14px; flex-wrap:wrap; margin-top:38px; }
+    .button { border:1px solid var(--orange); border-radius:999px; padding:10px 18px; }
+    .button.primary { background:var(--orange); color:#fff; }
+    footer { border-top:1px solid var(--line); padding:24px 0 36px; color:var(--muted); font-size:14px; }
+    @media (max-width:760px) { .bar { align-items:flex-start; flex-direction:column; padding:18px 0; } .grid { grid-template-columns:1fr; } main { padding-top:40px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <a class="brand" href="https://archiljali.github.io/BHOC-VET-Therapeutics/"><span>BHOC</span> VET-platform</a>
+      <nav aria-label="Evidence platform navigation">
+        <a href="#scope">Evidence Scope</a>
+        <a href="#clinical">Clinical Science</a>
+        <a href="#regulatory">Regulatory History</a>
+        <a href="https://archiljali.github.io/BHOC-platform/">BHOC-platform</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="eyebrow">Separate veterinary evidence workstream</div>
+    <h1>Veterinary evidence for oxygen biology.</h1>
+    <p class="lead">BHOC VET-platform organizes veterinary clinical science, regulatory history, species and model context, publications, and qualified source navigation. It is the evidence layer for BHOC Veterinary - separate from the market-facing therapeutics site.</p>
+    <div class="rule" aria-hidden="true"></div>
+    <section id="scope" class="grid" aria-label="Evidence scope">
+      <article id="clinical"><h2>Clinical Science</h2><p>Evidence framing for oxygen delivery, tissue oxygenation, microvascular biology, safety, and species-specific clinical questions.</p></article>
+      <article id="regulatory"><h2>Regulatory History</h2><p>Structured navigation for veterinary regulatory records, product history, endpoints, and source-qualified claims.</p></article>
+      <article><h2>Species &amp; Models</h2><p>Companion, equine, camelid, avian, raptor, zoo, wildlife, marine, and exotic contexts organized for evidence review.</p></article>
+    </section>
+    <div class="links">
+      <a class="button primary" href="https://archiljali.github.io/BHOC-VET-Therapeutics/">BHOC VET-Therapeutics</a>
+      <a class="button" href="https://archiljali.github.io/BHOC-platform/veterinary/Vet-index.html">Current BHOC veterinary evidence</a>
+      <a class="button" href="https://archiljali.github.io/BHOC-platform/">BHOC-platform</a>
+    </div>
+  </main>
+  <footer><div class="wrap">BHOC VET-platform - evidence and source navigation. Market-facing veterinary positioning remains in BHOC VET-Therapeutics.</div></footer>
+</body>
+</html>
