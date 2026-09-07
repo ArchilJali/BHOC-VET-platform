@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://archiljali.github.io/BHOC-VET-platform/sitemap.xml
