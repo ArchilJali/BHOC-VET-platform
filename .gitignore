@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+*.tar
+*.tar.gz
+*.zip
+backup/
+backups/
