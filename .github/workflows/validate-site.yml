@@ -1,0 +1,28 @@
+name: Validate BHOC VET-platform
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - '**.htm'
+      - 'scripts/check_site.mjs'
+      - '.github/workflows/validate-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Enforce Yandex separation without changing global indexing
+        run: node scripts/check_site.mjs
