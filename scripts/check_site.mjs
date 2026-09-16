@@ -22,7 +22,17 @@ for(const relative of pages){
   const html=fs.readFileSync(path.join(root,relative),'utf8');
   const directives=[...html.matchAll(/<meta\b(?=[^>]*\bname=["']yandex["'])(?=[^>]*\bcontent=["']noindex["'])[^>]*>/gi)];
   assert.equal(directives.length,1,`${relative}: exactly one Yandex-only noindex directive required`);
+  if(relative==='404.html'){
+    assert.match(html,/<meta\b(?=[^>]*\bname=["']robots["'])(?=[^>]*\bcontent=["']noindex)/i,'404.html: noindex directive required');
+    continue;
+  }
   assert.match(html,/<meta\b(?=[^>]*\bname=["']robots["'])(?=[^>]*\bcontent=["'][^"']*index)[^>]*>/i,`${relative}: global indexing directive must remain enabled`);
+  assert.match(html,/<main\b[^>]*\bid=["'][^"']+["']/i,`${relative}: named main landmark required`);
+  assert.match(html,/<a\b[^>]*\bclass=["'][^"']*skip[^"']*["'][^>]*>/i,`${relative}: skip link required`);
+  const title=html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]?.replace(/&amp;/g,'&').trim()||'';
+  const description=html.match(/<meta\b(?=[^>]*\bname=["']description["'])[^>]*\bcontent=["']([^"']*)["'][^>]*>/i)?.[1]||'';
+  assert.ok(title.length>=20&&title.length<=65,`${relative}: title length ${title.length}`);
+  assert.ok(description.length>=90&&description.length<=170,`${relative}: description length ${description.length}`);
 }
 
 console.log(`Passed: ${pages.length} public HTML pages block Yandex while preserving global indexing.`);
