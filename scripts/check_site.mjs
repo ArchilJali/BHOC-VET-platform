@@ -38,7 +38,7 @@ for(const relative of pages){
   const canonical=html.match(/<link\b(?=[^>]*\brel=["']canonical["'])[^>]*\bhref=["']([^"']+)["'][^>]*>/i)?.[1]?.trim()||'';
   assert.ok(title.length>=20&&title.length<=65,`${relative}: title length ${title.length}`);
   assert.ok(description.length>=90&&description.length<=170,`${relative}: description length ${description.length}`);
-  assert.ok(canonical.startsWith('https://archiljali.github.io/BHOC-VET-platform/'),`${relative}: canonical must use the public VET-platform origin`);
+  assert.ok(canonical.startsWith('https://evidence.bhocvet.com/'),`${relative}: canonical must use the public VET-platform origin`);
   assert.ok(!titles.has(title),`${relative}: title must be unique`); titles.add(title);
   assert.ok(!descriptions.has(description),`${relative}: description must be unique`); descriptions.add(description);
   assert.ok(!canonicals.has(canonical),`${relative}: canonical must be unique`); canonicals.add(canonical);
