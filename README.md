@@ -6,7 +6,7 @@ Guided veterinary evidence portal for oxygen biology, regulatory records and sci
 
 ## Public interface
 
-- [Open BHOC VET-platform](https://archiljali.github.io/BHOC-VET-platform/)
+- [Open BHOC VET-platform](https://evidence.bhocvet.com/)
 
 ## BHOC ecosystem
 
