@@ -59,11 +59,14 @@ assert.equal(new Set(related.filter(x=>x.doi).map(x=>x.doi.toLowerCase())).size,
 for(const record of related){
   assert.ok(!record.evidence_role.includes('direct'),record.id+': direct historical evidence belongs in BHOC Platform');
   assert.ok(record.migration?.source_commit&&record.migration?.original_id===record.id,record.id+': source provenance missing');
-  assert.ok(relatedPage.includes('id="'+record.id+'"'),record.id+': missing public card');
+  assert.ok(!relatedPage.includes('id="'+record.id+'"'),record.id+': general transfusion context must not appear as a direct oxygen-carrier card');
   assert.ok(Array.isArray(record.source_urls)&&record.source_urls.length>0,record.id+': source URL missing');
   assert.ok(record.source_urls.some(url=>registry.some(source=>source.url===url||(record.doi&&source.doi===record.doi))),record.id+': source registry coverage missing');
 }
-console.log('Passed: nine related evidence records, source registry coverage and public page mapping.');
+const directIds=['vet-hboc-zambelli-2009','vet-hboc-standl-2003','vet-hboc-standl-1996','vet-hboc-hamilton-2001','vet-hboc-gibson-2002','vet-hboc-weingart-kohn-2008'];
+for(const id of directIds)assert.ok(relatedPage.includes('id="'+id+'"'),id+': direct oxygen-carrier study missing from public selection');
+assert.equal((relatedPage.match(/<article class="record" id="vet-hboc-/g)||[]).length,6,'public page must show exactly six direct oxygen-carrier studies');
+console.log('Passed: six direct historical oxygen-carrier studies public; nine comparators retained only as internal context with source provenance.');
 
 console.log(`Passed: ${canonicals.size} indexable pages have unique search metadata, exact sitemap coverage and Yandex-only exclusion.`);
 
