@@ -7,6 +7,7 @@ Guided veterinary research portal for oxygen biology, regulatory context, concep
 ## Public interface
 
 - [Open BHOC VET-platform](https://archiljali.github.io/BHOC-VET-platform/)
+- [Veterinary related evidence](https://archiljali.github.io/BHOC-VET-platform/related-evidence.html) — nine source-linked comparator and context records
 
 ## BHOC ecosystem
 
@@ -25,5 +26,11 @@ Guided veterinary research portal for oxygen biology, regulatory context, concep
 - [Real-World Evidence](https://archiljali.github.io/BHOC-platform/real-world-evidence/) — public Oxygen Delivery Evidence knowledge-base entry
 
 Public ecosystem navigation should point to the public interfaces above. Historical catalogues remain in the central platform; new direction-specific evidence can develop in the dedicated platform without duplicating an editable historical database.
+
+## Transferred veterinary research materials
+
+The related-evidence collection contains nine comparator, guideline and review records retained from the former Oxygen Delivery Evidence repository. The direct historical Oxyglobin publications remain in the central BHOC catalogue; Weingart and Kohn (2008) was added to that curated layer. The [migration record](MIGRATION.md) traces all 15 original entries and the omitted legacy files.
+
+Original comparative analysis and the *Beyond the Blood Bank* working manuscript are retained in `research-drafts/` for editorial review. They are not presented as published clinical conclusions on the evidence page. The source registry and evidence-status method are under `data/` and `methodology/`.
 
 BHOC means Biological Hemoglobin Oxygen Carrier.

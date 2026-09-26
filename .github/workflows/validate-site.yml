@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - '**.html'
+      - 'data/**.json'
+      - 'sitemap.xml'
       - '**.htm'
       - 'scripts/check_site.mjs'
       - '.github/workflows/validate-site.yml'

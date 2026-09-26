@@ -49,6 +49,22 @@ assert.match(sitemap,/^<\?xml version="1\.0" encoding="UTF-8"\?>/,'sitemap.xml: 
 const sitemapUrls=new Set([...sitemap.matchAll(/<loc>(https:\/\/[^<]+)<\/loc>/g)].map(match=>match[1]));
 assert.deepEqual([...sitemapUrls].sort(),[...canonicals].sort(),'sitemap.xml: URLs must exactly match public canonical pages');
 
+
+const related=JSON.parse(fs.readFileSync(path.join(root,'data/related-evidence.json'),'utf8'));
+const registry=JSON.parse(fs.readFileSync(path.join(root,'data/source-registry.json'),'utf8'));
+const relatedPage=fs.readFileSync(path.join(root,'related-evidence.html'),'utf8');
+assert.equal(related.length,9,'expected nine migrated veterinary context records');
+assert.equal(new Set(related.map(x=>x.id)).size,related.length,'related records need unique IDs');
+assert.equal(new Set(related.filter(x=>x.doi).map(x=>x.doi.toLowerCase())).size,related.filter(x=>x.doi).length,'related DOI values must be unique');
+for(const record of related){
+  assert.ok(!record.evidence_role.includes('direct'),record.id+': direct historical evidence belongs in BHOC Platform');
+  assert.ok(record.migration?.source_commit&&record.migration?.original_id===record.id,record.id+': source provenance missing');
+  assert.ok(relatedPage.includes('id="'+record.id+'"'),record.id+': missing public card');
+  assert.ok(Array.isArray(record.source_urls)&&record.source_urls.length>0,record.id+': source URL missing');
+  assert.ok(record.source_urls.some(url=>registry.some(source=>source.url===url||(record.doi&&source.doi===record.doi))),record.id+': source registry coverage missing');
+}
+console.log('Passed: nine related evidence records, source registry coverage and public page mapping.');
+
 console.log(`Passed: ${canonicals.size} indexable pages have unique search metadata, exact sitemap coverage and Yandex-only exclusion.`);
 
 // Parse whole directive tokens: "noindex" must never satisfy an "index" check.
