@@ -29,8 +29,8 @@ Public ecosystem navigation should point to the public interfaces above. Histori
 
 ## Transferred veterinary research materials
 
-The public evidence selection shows six direct historical Oxyglobin/HBOC publications from the former Oxygen Delivery Evidence repository. Five already existed in the central catalogue or its curated layer; Weingart and Kohn (2008) was added there during migration. Nine general transfusion comparator, guideline and review records are retained in `data/related-evidence.json` as internal research context and are not presented as direct oxygen-carrier evidence. The [migration record](MIGRATION.md) traces all 15 original entries and the omitted legacy files.
+The public evidence selection shows six direct historical Oxyglobin/HBOC publications from the former Oxygen Delivery Evidence repository. Five already existed in the central catalogue or its curated layer; Weingart and Kohn (2008) was added there during migration. Nine general transfusion comparator, guideline and review records remain in the preserved snapshot of the former repository for future research review. They are not part of the active VET evidence collection. The [migration record](MIGRATION.md) traces all 15 original entries and the omitted legacy files.
 
-Original comparative analysis and the *Beyond the Blood Bank* working manuscript are retained in `research-drafts/` for editorial review. They are not presented as published clinical conclusions on the evidence page. The source registry and evidence-status method are under `data/` and `methodology/`.
+Original comparative analysis and the *Beyond the Blood Bank* working manuscript are retained in `research-drafts/` for editorial review. They are not presented as published clinical conclusions on the evidence page. The evidence-status method is under `methodology/`. The original source registry remains in the preserved snapshot.
 
 BHOC means Biological Hemoglobin Oxygen Carrier.

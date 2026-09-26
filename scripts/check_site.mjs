@@ -50,23 +50,13 @@ const sitemapUrls=new Set([...sitemap.matchAll(/<loc>(https:\/\/[^<]+)<\/loc>/g)
 assert.deepEqual([...sitemapUrls].sort(),[...canonicals].sort(),'sitemap.xml: URLs must exactly match public canonical pages');
 
 
-const related=JSON.parse(fs.readFileSync(path.join(root,'data/related-evidence.json'),'utf8'));
-const registry=JSON.parse(fs.readFileSync(path.join(root,'data/source-registry.json'),'utf8'));
 const relatedPage=fs.readFileSync(path.join(root,'related-evidence.html'),'utf8');
-assert.equal(related.length,9,'expected nine migrated veterinary context records');
-assert.equal(new Set(related.map(x=>x.id)).size,related.length,'related records need unique IDs');
-assert.equal(new Set(related.filter(x=>x.doi).map(x=>x.doi.toLowerCase())).size,related.filter(x=>x.doi).length,'related DOI values must be unique');
-for(const record of related){
-  assert.ok(!record.evidence_role.includes('direct'),record.id+': direct historical evidence belongs in BHOC Platform');
-  assert.ok(record.migration?.source_commit&&record.migration?.original_id===record.id,record.id+': source provenance missing');
-  assert.ok(!relatedPage.includes('id="'+record.id+'"'),record.id+': general transfusion context must not appear as a direct oxygen-carrier card');
-  assert.ok(Array.isArray(record.source_urls)&&record.source_urls.length>0,record.id+': source URL missing');
-  assert.ok(record.source_urls.some(url=>registry.some(source=>source.url===url||(record.doi&&source.doi===record.doi))),record.id+': source registry coverage missing');
-}
 const directIds=['vet-hboc-zambelli-2009','vet-hboc-standl-2003','vet-hboc-standl-1996','vet-hboc-hamilton-2001','vet-hboc-gibson-2002','vet-hboc-weingart-kohn-2008'];
 for(const id of directIds)assert.ok(relatedPage.includes('id="'+id+'"'),id+': direct oxygen-carrier study missing from public selection');
 assert.equal((relatedPage.match(/<article class="record" id="vet-hboc-/g)||[]).length,6,'public page must show exactly six direct oxygen-carrier studies');
-console.log('Passed: six direct historical oxygen-carrier studies public; nine comparators retained only as internal context with source provenance.');
+assert.ok(!relatedPage.includes('id="vet-transfusion-')&&!relatedPage.includes('id="vet-imha-'),'general transfusion context must not appear as direct evidence');
+assert.equal((relatedPage.match(/href="https:\/\/pubmed\.ncbi\.nlm\.nih\.gov\/[0-9]+\/"/g)||[]).length,6,'six PubMed source links required');
+console.log('Passed: six direct historical oxygen-carrier studies and source links; no comparator cards.');
 
 console.log(`Passed: ${canonicals.size} indexable pages have unique search metadata, exact sitemap coverage and Yandex-only exclusion.`);
 
