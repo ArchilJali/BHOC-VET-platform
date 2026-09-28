@@ -29,7 +29,7 @@ for(const relative of pages){
     assert.match(html,/<meta\b(?=[^>]*\bname=["']robots["'])(?=[^>]*\bcontent=["']noindex)/i,'404.html: noindex directive required');
     continue;
   }
-  assertInternationalIndexing(html,relative);
+  assert.ok(indexingDirectives(html,'robots').includes('noindex'),`${relative}: old GitHub Pages path must be noindex`);
   assert.match(html,/<main\b[^>]*\bid=["'][^"']+["']/i,`${relative}: named main landmark required`);
   assert.match(html,/<a\b[^>]*\bclass=["'][^"']*skip[^"']*["'][^>]*>/i,`${relative}: skip link required`);
   assert.equal((html.match(/<h1\b/gi)||[]).length,1,`${relative}: exactly one H1 required`);
@@ -38,7 +38,8 @@ for(const relative of pages){
   const canonical=html.match(/<link\b(?=[^>]*\brel=["']canonical["'])[^>]*\bhref=["']([^"']+)["'][^>]*>/i)?.[1]?.trim()||'';
   assert.ok(title.length>=20&&title.length<=65,`${relative}: title length ${title.length}`);
   assert.ok(description.length>=90&&description.length<=170,`${relative}: description length ${description.length}`);
-  assert.ok(canonical.startsWith('https://archiljali.github.io/BHOC-VET-platform/'),`${relative}: canonical must use the public VET-platform origin`);
+  assert.ok(canonical.startsWith('https://bhoctherapeutics.com/evidence/library/veterinary/direct-studies/'),`${relative}: canonical must point to the owned-domain copy`);
+  assert.ok(html.includes(`content="0;url=${canonical}"`),`${relative}: immediate migration bridge required`);
   assert.ok(!titles.has(title),`${relative}: title must be unique`); titles.add(title);
   assert.ok(!descriptions.has(description),`${relative}: description must be unique`); descriptions.add(description);
   assert.ok(!canonicals.has(canonical),`${relative}: canonical must be unique`); canonicals.add(canonical);
@@ -47,7 +48,7 @@ for(const relative of pages){
 const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
 assert.match(sitemap,/^<\?xml version="1\.0" encoding="UTF-8"\?>/,'sitemap.xml: XML declaration required');
 const sitemapUrls=new Set([...sitemap.matchAll(/<loc>(https:\/\/[^<]+)<\/loc>/g)].map(match=>match[1]));
-assert.deepEqual([...sitemapUrls].sort(),[...canonicals].sort(),'sitemap.xml: URLs must exactly match public canonical pages');
+assert.equal(sitemapUrls.size,0,'old-host sitemap must exclude moved pages');
 
 
 const relatedPage=fs.readFileSync(path.join(root,'related-evidence.html'),'utf8');
@@ -58,7 +59,7 @@ assert.ok(!relatedPage.includes('id="vet-transfusion-')&&!relatedPage.includes('
 assert.equal((relatedPage.match(/href="https:\/\/pubmed\.ncbi\.nlm\.nih\.gov\/[0-9]+\/"/g)||[]).length,6,'six PubMed source links required');
 console.log('Passed: six direct historical oxygen-carrier studies and source links; no comparator cards.');
 
-console.log(`Passed: ${canonicals.size} indexable pages have unique search metadata, exact sitemap coverage and Yandex-only exclusion.`);
+console.log(`Passed: ${canonicals.size} old pages bridge to the owned domain, with noindex and an empty old-host sitemap.`);
 
 // Parse whole directive tokens: "noindex" must never satisfy an "index" check.
 function indexingDirectives(source,agent){
